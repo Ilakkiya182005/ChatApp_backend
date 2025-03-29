@@ -11,13 +11,20 @@ export const generateToken = (userId, res) => {
   //   sameSite: "strict", // CSRF attacks cross-site request forgery attacks
   //   secure: process.env.NODE_ENV !== "development",
   // });
+  // res.cookie("jwt", token, {
+  //   maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days in milliseconds
+  //   httpOnly: true,  // ✅ Prevents JavaScript from accessing the cookie (XSS protection)
+  //   sameSite: "None", // ✅ Allows cross-site requests (Frontend on different domain)
+  //   secure: process.env.NODE_ENV === "production", // ✅ Only send cookie over HTTPS in production
+  // });
   res.cookie("jwt", token, {
-    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days in milliseconds
-    httpOnly: true,  // ✅ Prevents JavaScript from accessing the cookie (XSS protection)
-    sameSite: "None", // ✅ Allows cross-site requests (Frontend on different domain)
-    secure: process.env.NODE_ENV === "production", // ✅ Only send cookie over HTTPS in production
+    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    httpOnly: true, // Prevents JavaScript access (XSS protection)
+    sameSite: "None", // ✅ Required for cross-site requests
+    secure: true, // ✅ Ensures cookies are sent over HTTPS
   });
   
+   
 
   return token;
 };
